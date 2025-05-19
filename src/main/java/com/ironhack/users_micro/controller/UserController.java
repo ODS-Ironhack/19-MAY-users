@@ -25,13 +25,9 @@ public class UserController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<?> getUserById(@PathVariable long id) {
-        try {
-            User foundUser = userService.getUserById(id);
-            return new ResponseEntity<>(foundUser, HttpStatus.FOUND);
-        } catch (UserNotFoundException e) {
-            return new ResponseEntity<>(e.getMessage(), HttpStatus.NOT_FOUND);
-        }
+    @ResponseStatus(HttpStatus.FOUND)
+    public ResponseEntity<?> getUserById(@PathVariable Long id) {
+        return userService.getUserById(id);
     }
 
     @PostMapping
